@@ -1,12 +1,17 @@
 # html-beautify-webpack-plugin
 Beautifier for output of [HtmlWebpackPlugin](https://github.com/jantimon/html-webpack-plugin)
 
+**Forked from https://github.com/seeyoulater/html-beautify-webpack-plugin**
+
+**Updated to work with HtmlWebpackPlugin v4 from [this](https://github.com/seeyoulater/html-beautify-webpack-plugin/issues/9#issuecomment-637805966) comment**
+
 Installation
 ------------
 Install the plugin with npm:
 ```shell
-$ npm i -D html-beautify-webpack-plugin
+$ npm i -D @rnurminen/html-beautify-webpack-plugin
 ```
+
 
 Usage
 -----------
@@ -14,7 +19,7 @@ Usage
 
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
+const HtmlBeautifyPlugin = require('@rnurminen/html-beautify-webpack-plugin');
 
 ...
     plugins: [
