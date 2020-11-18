@@ -9,7 +9,7 @@ Installation
 ------------
 Install the plugin with npm:
 ```shell
-$ npm i -D @rnurminen/html-beautify-webpack-plugin
+$ npm i -D @nurminen/html-beautify-webpack-plugin
 ```
 
 
@@ -19,7 +19,7 @@ Usage
 
 ```javascript
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlBeautifyPlugin = require('@rnurminen/html-beautify-webpack-plugin');
+const HtmlBeautifyPlugin = require('@nurminen/html-beautify-webpack-plugin');
 
 ...
     plugins: [
