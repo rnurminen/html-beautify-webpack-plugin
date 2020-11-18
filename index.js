@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const assert = require('assert')
 const beautify = require('js-beautify').html
 const webpackLatest = !_.isNil(webpack.version) && /.*4(\.\d+){0,2}/gi.test(webpack.version)
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function HtmlBeautifyPlugin ({ config = {}, replace } = { config: {}, replace: [] }) {
 
@@ -35,19 +36,15 @@ function htmlPluginDataFunction (htmlPluginData, callback, _this) {
 }
 
 HtmlBeautifyPlugin.prototype.apply = function (compiler) {
-    if (!webpackLatest) {
-        compiler.plugin('compilation', compilation =>
-            compilation.plugin('html-webpack-plugin-after-html-processing', (htmlPluginData, callback) => {
-                htmlPluginDataFunction(htmlPluginData, callback, this)
-            })
-        )
-    } else {
-        compiler.hooks.compilation.tap('HtmlBeautifyPlugin', compilation =>
-            compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync('HtmlBeautifyPlugin', (htmlPluginData, callback) => {
-                htmlPluginDataFunction(htmlPluginData, callback, this)
-            })
-        )
-    }
+    compiler.hooks.compilation.tap('HtmlBeautifyPlugin', compilation => {
+        let hook = compilation.hooks.htmlWebpackPluginAfterHtmlProcessing
+            ? compilation.hooks.htmlWebpackPluginAfterHtmlProcessing
+            : HtmlWebpackPlugin.getHooks(compilation).beforeEmit
+
+        hook.tapAsync('HtmlBeautifyPlugin', (htmlPluginData, callback) => {
+            htmlPluginDataFunction(htmlPluginData, callback, this)
+        })
+    })
 }
 
 module.exports = HtmlBeautifyPlugin
